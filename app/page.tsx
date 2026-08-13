@@ -11,7 +11,7 @@ const CLIENT_TIMEOUT_MS = 10_000;
 type ResultState =
   | { status: "idle" }
   | { status: "loading" }
-  | { status: "success"; flowerName: string }
+  | { status: "success"; flowerName: string; description: string }
   | { status: "error"; code: string; message: string; retryable: boolean };
 
 export default function Home() {
@@ -69,9 +69,17 @@ export default function Home() {
         return;
       }
 
-      setResult({ status: "success", flowerName: json.data.flowerName });
+      setResult({
+        status: "success",
+        flowerName: json.data.flowerName,
+        description: json.data.description,
+      });
       setHistory(
-        addHistoryEntry({ imagePath: json.data.imagePath, flowerName: json.data.flowerName })
+        addHistoryEntry({
+          imagePath: json.data.imagePath,
+          flowerName: json.data.flowerName,
+          description: json.data.description,
+        })
       );
     } catch {
       // 네트워크 오류 또는 클라이언트 10초 타임아웃 (DESIGN.md 3단계)
@@ -157,7 +165,14 @@ export default function Home() {
 
         {result.status === "loading" && <p className="text-sm text-gray-500">분석 중...</p>}
         {result.status === "success" && (
-          <p className="text-lg font-semibold text-brand-dark">{result.flowerName}</p>
+          <div className="flex flex-col items-center gap-1 text-center">
+            <p className="text-lg font-semibold text-brand-dark">{result.flowerName}</p>
+            {result.description && (
+              <p className="max-w-sm text-sm leading-relaxed text-gray-600">
+                {result.description}
+              </p>
+            )}
+          </div>
         )}
         {result.status === "error" && result.code === "NOT_A_FLOWER" && (
           <p className="text-sm text-gray-600">{result.message}</p>
@@ -212,8 +227,13 @@ export default function Home() {
                 ) : (
                   <div className="h-14 w-14 rounded-md bg-gray-100" />
                 )}
-                <div className="flex flex-col">
+                <div className="flex min-w-0 flex-col">
                   <span className="font-medium text-gray-800">{entry.flowerName}</span>
+                  {entry.description && (
+                    <span className="line-clamp-1 text-xs text-gray-500">
+                      {entry.description}
+                    </span>
+                  )}
                   <span className="text-xs text-gray-400">
                     {new Date(entry.createdAt).toLocaleString("ko-KR")}
                   </span>

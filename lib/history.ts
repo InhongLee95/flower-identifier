@@ -10,7 +10,9 @@ export function loadHistory(): HistoryEntry[] {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return [];
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
+    if (!Array.isArray(parsed)) return [];
+    // description 필드가 없던 예전 기록(호환)도 안전하게 표시되도록 기본값 채움
+    return parsed.map((entry) => ({ description: "", ...entry }));
   } catch {
     return [];
   }

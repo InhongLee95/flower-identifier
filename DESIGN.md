@@ -8,7 +8,7 @@
 - **가운데 — 업로드 영역**: 사진 선택 버튼, 선택한 사진 미리보기
 - **업로드 영역 바로 아래 — 결과 표시 영역**: 상태에 따라 아래 중 하나가 보입니다
   - 분석 중일 때: "분석 중..." 로딩 표시
-  - 성공했을 때: 방금 선택한 사진(브라우저에 남아있는 미리보기 objectURL, 서버에 다시 요청하지 않음) + 식별된 꽃 이름 카드
+  - 성공했을 때: 방금 선택한 사진(브라우저에 남아있는 미리보기 objectURL, 서버에 다시 요청하지 않음) + 식별된 꽃 이름·설명(꽃 도감처럼 생김새·특징 2~3문장) 카드
   - 타임아웃/API 오류일 때: "다시 시도해주세요" 안내 + "다시 시도" 버튼
   - 꽃을 인식하지 못했을 때: "꽃을 인식하지 못했습니다" 안내만 (재시도해도 결과가 같으므로 버튼 없음)
 - **업로드 영역 안 — 검증 에러 표시**: 파일을 고르는 즉시(서버 전송 전) 형식·용량을 확인해 선택 버튼 아래에 안내 문구를 띄웁니다
@@ -33,7 +33,7 @@
 ## API 스펙 (`/api/identify`)
 
 - 요청: `multipart/form-data`, 필드명 `image`
-- 성공 응답: `{ data: { flowerName, imagePath } }`
+- 성공 응답: `{ data: { flowerName, description, imagePath } }` — `description`은 꽃 도감처럼 생김새·특징을 설명하는 한국어 2~3문장(120자 이내 요청, 응답은 200자로 서버가 잘라 저장)
 - 실패 응답: `{ error: { code, message } }` — `code`는 다음 중 하나
   - `NOT_A_FLOWER`: 꽃을 인식하지 못함 (재시도 버튼 숨김)
   - `INVALID_FILE`: 서버 재검증에서 형식/용량 위반 발견 (재시도 버튼 숨김 — 다른 파일을 다시 선택해야 함)
@@ -54,7 +54,7 @@
 ## localStorage 데이터 구조
 
 - 키: `flower-history`
-- 값: `{ id, imagePath, flowerName, createdAt }[]` 배열
+- 값: `{ id, imagePath, flowerName, description, createdAt }[]` 배열
   - `id`: `crypto.randomUUID()`로 생성
   - `createdAt`: `Date.now()` 값(number)
 - 새 항목은 배열 맨 앞에 추가(최신순), 저장할 때마다 `slice(0, 20)`으로 20개 제한

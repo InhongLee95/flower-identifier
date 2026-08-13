@@ -2,6 +2,7 @@ export type HistoryEntry = {
   id: string;
   imagePath: string;
   flowerName: string;
+  description: string;
   createdAt: number;
 };
 
