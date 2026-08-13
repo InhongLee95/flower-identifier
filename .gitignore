@@ -1,0 +1,28 @@
+.env
+node_modules
+
+# next.js
+/.next/
+/out/
+next-env.d.ts
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+
+# trash-can (지운 파일 임시 보관용)
+/trash-can
+
+# AI 도구 내부 세션·감사 로그 (앱 코드가 아니므로 공개 저장소에 올리지 않음)
+/.bkit
+/.claude
+/supabase/.temp
