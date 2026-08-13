@@ -33,7 +33,7 @@
 ## API 스펙 (`/api/identify`)
 
 - 요청: `multipart/form-data`, 필드명 `image`
-- 성공 응답: `{ data: { flowerName, description, imagePath } }` — `description`은 꽃 도감처럼 생김새·특징을 설명하는 한국어 2~3문장(120자 이내 요청, 응답은 200자로 서버가 잘라 저장)
+- 성공 응답: `{ data: { flowerName, description, imagePath } }` — `description`은 꽃 도감 항목처럼 "꽃말 / 개화 시기 / 특징" 3줄을 줄바꿈으로 구분한 한국어 4~5줄(300자 이내 요청, 응답은 400자로 서버가 잘라 저장)
 - 실패 응답: `{ error: { code, message } }` — `code`는 다음 중 하나
   - `NOT_A_FLOWER`: 꽃을 인식하지 못함 (재시도 버튼 숨김)
   - `INVALID_FILE`: 서버 재검증에서 형식/용량 위반 발견 (재시도 버튼 숨김 — 다른 파일을 다시 선택해야 함)

@@ -165,10 +165,10 @@ export default function Home() {
 
         {result.status === "loading" && <p className="text-sm text-gray-500">분석 중...</p>}
         {result.status === "success" && (
-          <div className="flex flex-col items-center gap-1 text-center">
+          <div className="flex w-full max-w-sm flex-col items-center gap-2">
             <p className="text-lg font-semibold text-brand-dark">{result.flowerName}</p>
             {result.description && (
-              <p className="max-w-sm text-sm leading-relaxed text-gray-600">
+              <p className="w-full whitespace-pre-line rounded-lg bg-brand/5 p-3 text-sm leading-relaxed text-gray-700">
                 {result.description}
               </p>
             )}
