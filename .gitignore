@@ -26,3 +26,6 @@ npm-debug.log*
 /.bkit
 /.claude
 /supabase/.temp
+
+.vercel
+.env*
