@@ -138,7 +138,7 @@ export default function Home() {
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-2xl flex-col gap-8 px-4 py-10">
-      <h1 className="text-center text-2xl font-bold text-brand-dark">꽃 이름 찾기</h1>
+      <h1 className="text-center text-2xl font-bold text-brand-dark">꽃 이름 뭐야</h1>
 
       {/* 업로드 영역 */}
       <section className="flex flex-col items-center gap-3">

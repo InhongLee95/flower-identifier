@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "꽃 이름 찾기",
+  title: "꽃 이름 뭐야",
   description: "꽃 사진을 업로드하면 AI가 꽃 이름을 알려주는 개인용 앱",
 };
 
