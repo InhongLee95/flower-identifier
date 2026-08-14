@@ -16,7 +16,7 @@ PRD.md에 정의된 두 핵심 기능(꽃 사진 업로드 및 식별, 식별 �
 1. Next.js(App Router) 프로젝트 초기화
 2. Tailwind CSS 설치 및 기본 스타일 설정
 3. 업로드 화면 기본 레이아웃(업로드 영역 + 결과 표시 영역) 뼈대 구성
-4. 이미지 업로드 입력(파일 선택, JPG/PNG·4MB 제한 — Vercel 요청 본문 한도 대응) 구현
+4. 이미지 업로드 입력(파일 선택, JPG/PNG·4.3MB 제한 — Vercel 요청 본문 한도 대응) 구현
 5. Supabase 프로젝트/비공개 버킷 연결 — `SUPABASE_URL`·`SUPABASE_SERVICE_ROLE_KEY` 발급 후 `.env`에 추가 — 및 이미지 업로드 기능 구현
 6. OpenAI API(gpt-4o-mini, 이미지 인식) 연동용 서버 API 라우트(/api/identify) 구현 (서버 재검증·병렬 실패 처리 포함)
 7. 업로드 → (Storage 저장 + AI 식별을 동시 실행) → 결과 반환까지 전체 흐름 연결

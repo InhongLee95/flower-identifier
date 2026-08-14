@@ -5,7 +5,7 @@ import { addHistoryEntry, clearHistory, loadHistory } from "@/lib/history";
 import type { HistoryEntry } from "@/lib/types";
 
 const ALLOWED_TYPES = ["image/jpeg", "image/png"];
-const MAX_SIZE = 4 * 1024 * 1024; // 4MB, DESIGN.md 참고
+const MAX_SIZE = 4_300_000; // 4.3MB — Vercel 요청 본문 한도(약 4.5MB) 안에서 안전하게 잡을 수 있는 최대치, DESIGN.md 참고
 const CLIENT_TIMEOUT_MS = 10_000;
 
 type ResultState =
@@ -99,7 +99,7 @@ export default function Home() {
       return;
     }
     if (file.size > MAX_SIZE) {
-      setValidationError("4MB 이하의 사진만 업로드할 수 있어요.");
+      setValidationError("4.3MB 이하의 사진만 업로드할 수 있어요.");
       return;
     }
 

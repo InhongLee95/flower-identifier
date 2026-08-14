@@ -42,7 +42,7 @@ These choices are locked in for continuity with earlier course parts and an upco
 ## Product rules to preserve when implementing
 
 - Identification result must appear within 5s of upload.
-- Accepted image formats: JPG/PNG only, 4MB max (lowered from the original 5MB to stay safely under Vercel's ~4.5MB request body limit — see PRD.md §5, DESIGN.md).
+- Accepted image formats: JPG/PNG only, 4.3MB max (lowered from the original 5MB to stay safely under Vercel's ~4.5MB request body limit — see PRD.md §5, DESIGN.md).
 - Non-flower or unrecognizable images must show "꽃을 인식하지 못했습니다" rather than a generic error.
 - Empty history state needs its own message, not a blank list.
 - History needs a "전체 삭제" (clear all) action.

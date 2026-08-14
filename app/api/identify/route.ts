@@ -8,7 +8,7 @@ import type { IdentifyErrorCode } from "@/lib/types";
 export const runtime = "nodejs";
 
 const ALLOWED_TYPES = ["image/jpeg", "image/png"];
-const MAX_SIZE = 4 * 1024 * 1024; // 4MB — Vercel 요청 본문 한도(약 4.5MB) 대응, DESIGN.md 참고
+const MAX_SIZE = 4_300_000; // 4.3MB — Vercel 요청 본문 한도(약 4.5MB) 안에서 안전하게 잡을 수 있는 최대치, DESIGN.md 참고
 const TIMEOUT_MS = 10_000;
 
 // 파일 앞부분의 매직 넘버로 실제 이미지 형식을 확인 (file.type은 요청자가 임의로 적을 수 있어 신뢰 불가)
@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
     return errorResponse("INVALID_FILE", "JPG 또는 PNG 파일만 업로드할 수 있어요.", 400);
   }
   if (file.size > MAX_SIZE) {
-    return errorResponse("INVALID_FILE", "4MB 이하의 사진만 업로드할 수 있어요.", 400);
+    return errorResponse("INVALID_FILE", "4.3MB 이하의 사진만 업로드할 수 있어요.", 400);
   }
 
   const arrayBuffer = await file.arrayBuffer();
