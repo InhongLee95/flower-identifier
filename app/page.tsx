@@ -125,6 +125,17 @@ export default function Home() {
     setThumbnails({});
   };
 
+  // 기록 목록에서 항목을 클릭하면 결과 표시 영역에 그 기록을 다시 보여준다
+  const handleHistoryClick = (entry: HistoryEntry) => {
+    const url = thumbnails[entry.imagePath] ?? null;
+    setPreviewUrl((prev) => {
+      if (prev && prev.startsWith("blob:")) URL.revokeObjectURL(prev);
+      return url;
+    });
+    setValidationError(null);
+    setResult({ status: "success", flowerName: entry.flowerName, description: entry.description });
+  };
+
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-2xl flex-col gap-8 px-4 py-10">
       <h1 className="text-center text-2xl font-bold text-brand-dark">꽃 이름 찾기</h1>
@@ -213,31 +224,34 @@ export default function Home() {
         ) : (
           <ul className="flex max-h-96 flex-col gap-2 overflow-y-auto">
             {history.map((entry) => (
-              <li
-                key={entry.id}
-                className="flex items-center gap-3 rounded-lg border border-gray-100 p-2"
-              >
-                {thumbnails[entry.imagePath] ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={thumbnails[entry.imagePath]}
-                    alt={entry.flowerName}
-                    className="h-14 w-14 rounded-md object-cover"
-                  />
-                ) : (
-                  <div className="h-14 w-14 rounded-md bg-gray-100" />
-                )}
-                <div className="flex min-w-0 flex-col">
-                  <span className="font-medium text-gray-800">{entry.flowerName}</span>
-                  {entry.description && (
-                    <span className="line-clamp-1 text-xs text-gray-500">
-                      {entry.description}
-                    </span>
+              <li key={entry.id}>
+                <button
+                  type="button"
+                  onClick={() => handleHistoryClick(entry)}
+                  className="flex w-full items-center gap-3 rounded-lg border border-gray-100 p-2 text-left transition hover:border-brand hover:bg-brand/5"
+                >
+                  {thumbnails[entry.imagePath] ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={thumbnails[entry.imagePath]}
+                      alt={entry.flowerName}
+                      className="h-14 w-14 rounded-md object-cover"
+                    />
+                  ) : (
+                    <div className="h-14 w-14 rounded-md bg-gray-100" />
                   )}
-                  <span className="text-xs text-gray-400">
-                    {new Date(entry.createdAt).toLocaleString("ko-KR")}
-                  </span>
-                </div>
+                  <div className="flex min-w-0 flex-col">
+                    <span className="font-medium text-gray-800">{entry.flowerName}</span>
+                    {entry.description && (
+                      <span className="line-clamp-1 text-xs text-gray-500">
+                        {entry.description}
+                      </span>
+                    )}
+                    <span className="text-xs text-gray-400">
+                      {new Date(entry.createdAt).toLocaleString("ko-KR")}
+                    </span>
+                  </div>
+                </button>
               </li>
             ))}
           </ul>
